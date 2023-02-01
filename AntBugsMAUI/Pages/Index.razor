@@ -1,0 +1,169 @@
+﻿@page "/"
+
+
+<p>Use the button to open DRAWER</p>
+
+<p>Then first copy any text to the clipboard (e.g. via Control C) and go to the form on the Drawer.</p>
+
+<p>Now paste the text from the clipboard into the individual text fields as quickly as possible.</p>
+
+<p>Already at the 2-3 text field, the cursor is caught and you cannot do anything with the mouse.</p>
+
+
+<Form Model="@Data_DBconn" Size="small">
+    <div class="calc-form-label">@_T_("k_server")</div>
+    <FormItem>
+        <Input @bind-Value="@context.DataServer" />
+    </FormItem>
+    <div class="calc-form-label">@_T_("k_db")</div>
+    <FormItem>
+        <Input @bind-Value="@context.DataDB" />
+    </FormItem>
+    <div class="calc-form-label">@_T_("k_dbuser")</div>
+    <FormItem>
+        <Input @bind-Value="@context.DataUser" />
+    </FormItem>
+    <div class="calc-form-label">@_T_("k_dbpasswort")</div>
+    <FormItem>
+        <InputPassword @bind-Value="@context.DataPassword" />
+    </FormItem>
+    <div class="calc-form-label">@_T_("k_encrypt")</div>
+    <FormItem>
+        <Switch CheckedChildren="@_T_("k_yes")" UnCheckedChildren="@_T_("k_no")" @bind-Value="@context.DataEncrypt" />
+    </FormItem>
+    <div class="calc-form-label">@_T_("k_trusted_connection")</div>
+    <FormItem>
+        <Switch CheckedChildren="@_T_("k_yes")" UnCheckedChildren="@_T_("k_no")" @bind-Value="@context.DataTrustedConnection" />
+    </FormItem>
+
+    <FormItem WrapperColOffset="8" WrapperColSpan="16">
+        <Button Type="@ButtonType.Primary" OnClick="onClickNewConn">
+            @_T_("k_save")
+        </Button>
+    </FormItem>
+</Form>
+
+
+
+<form id="LoginForm" action="cookie" method="post">
+    <label class="calc-form-label">Email</label>
+    <input id="LoginFormEmail" class="ant-input ant-input-sm" type="text" name="email" />
+    <label class="calc-form-label">Email</label>
+    <input id="LoginFormEmail" class="ant-input ant-input-sm" type="text" name="email2" />
+    <label class="calc-form-label">Email</label>
+    <input id="LoginFormEmail" class="ant-input ant-input-sm" type="text" name="email3" />
+    <label class="calc-form-label">Email</label>
+    <input id="LoginFormEmail" class="ant-input ant-input-sm" type="text" name="email4" />
+    <label class="calc-form-label">Password</label>
+    <input class="ant-input ant-input-sm ant-input-password-small" type="password" name="password" />
+    @*<input type="checkbox" id="vehicle1" name="rememberme" value="true">*@
+    <div style="display: flex; justify-content: center;">
+        <input class="calc-submit-btn" type="submit" value="@_T_("k_login")" />
+    </div>
+</form>
+
+@*<div>
+    <Button Type="primary" @onclick="_=>open()">Open DRAWER</Button>
+
+    <Drawer Closable="true" Visible="visible" Placement="right" Title='("Basic Drawer")' OnClose="_=>close()">
+
+        <Form Model="@Data_DBconn" Size="small">
+            <div class="calc-form-label">@_T_("k_server")</div>
+            <FormItem>
+                <Input @bind-Value="@context.DataServer" />
+            </FormItem>
+            <div class="calc-form-label">@_T_("k_db")</div>
+            <FormItem>
+                <Input @bind-Value="@context.DataDB" />
+            </FormItem>
+            <div class="calc-form-label">@_T_("k_dbuser")</div>
+            <FormItem>
+                <Input @bind-Value="@context.DataUser" />
+            </FormItem>
+            <div class="calc-form-label">@_T_("k_dbpasswort")</div>
+            <FormItem>
+                <InputPassword @bind-Value="@context.DataPassword" />
+            </FormItem>
+            <div class="calc-form-label">@_T_("k_encrypt")</div>
+            <FormItem>
+                <Switch CheckedChildren="@_T_("k_yes")" UnCheckedChildren="@_T_("k_no")" @bind-Value="@context.DataEncrypt" />
+            </FormItem>
+            <div class="calc-form-label">@_T_("k_trusted_connection")</div>
+            <FormItem>
+                <Switch CheckedChildren="@_T_("k_yes")" UnCheckedChildren="@_T_("k_no")" @bind-Value="@context.DataTrustedConnection" />
+            </FormItem>
+
+            <FormItem WrapperColOffset="8" WrapperColSpan="16">
+                <Button Type="@ButtonType.Primary" OnClick="onClickNewConn">
+                    @_T_("k_save")
+                </Button>
+            </FormItem>
+        </Form>
+
+
+
+        <form id="LoginForm" action="cookie" method="post">
+            <label class="calc-form-label">Email</label>
+            <input id="LoginFormEmail" class="ant-input ant-input-sm" type="text" name="email" />
+            <label class="calc-form-label">Email</label>
+            <input id="LoginFormEmail" class="ant-input ant-input-sm" type="text" name="email2" />
+            <label class="calc-form-label">Email</label>
+            <input id="LoginFormEmail" class="ant-input ant-input-sm" type="text" name="email3" />
+            <label class="calc-form-label">Email</label>
+            <input id="LoginFormEmail" class="ant-input ant-input-sm" type="text" name="email4" />
+            <label class="calc-form-label">Password</label>
+            <input class="ant-input ant-input-sm ant-input-password-small" type="password" name="password" />
+            <div style="display: flex; justify-content: center;">
+                <input class="calc-submit-btn" type="submit" value="@_T_("k_login")" />
+            </div>
+        </form>
+
+    </Drawer>
+</div>*@
+
+@code {
+
+    public class JsonConfigModel
+    {
+        public string DataServer { get; set; } = "";
+        public string DataDB { get; set; } = "";
+        public string DataUser { get; set; } = "";
+        public string DataPassword { get; set; } = "";
+        public bool DataEncrypt { get; set; } = false;
+        public bool DataTrustedConnection { get; set; } = true;
+    }
+
+    JsonConfigModel Data_DBconn = new JsonConfigModel();
+    bool visible = false;
+
+    void open()
+    {
+        this.visible = true;
+    }
+
+    void close()
+    {
+        this.visible = false;
+    }
+
+    protected void onClickNewConn()
+    {
+
+    }
+
+    protected string _T_(string term)
+    {
+        //return Languages.GetLanguageTerm("de", term);
+        return term;
+    }
+
+}
+
+
+
+@*
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />*@
